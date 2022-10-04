@@ -310,9 +310,8 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="設定數字"/>
                                 <connections>
-                                    <action selector="Start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3kb-8o-mjU"/>
-                                    <action selector="showAnsButton:" destination="BYZ-38-t0r" eventType="touchDragInside" id="axa-Vr-qI2"/>
-                                    <action selector="unshowAnsButton:" destination="BYZ-38-t0r" eventType="touchCancel" id="OMd-6p-Bmb"/>
+                                    <action selector="showAnsButton:" destination="BYZ-38-t0r" eventType="touchDown" id="bRQ-7c-rLj"/>
+                                    <action selector="startButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JY0-b9-mkx"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(不重複的四位數字)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnk-v2-p6W">

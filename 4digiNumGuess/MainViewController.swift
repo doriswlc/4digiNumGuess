@@ -37,21 +37,23 @@ class MainViewController: UIViewController {
         }
     }
     
-    @IBAction func Start(_ sender: Any) {
-        number1 = Int.random(in: 0...9)
-        while number2 == number1 {
-            number2 = Int.random(in: 0...9)
-        }
-        while number3 == number1 || number3 == number2 {
-            number3 = Int.random(in: 0...9)
-        }
-        while number4 == number1 || number4 == number2 || number4 == number3 {
-            number4 = Int.random(in: 0...9)
+    @IBAction func startButtonTap(_ sender: Any) {
+        if startButton.currentTitle == "設定數字" {
+            number1 = Int.random(in: 0...9)
+            while number2 == number1 {
+                number2 = Int.random(in: 0...9)
+            }
+            while number3 == number1 || number3 == number2 {
+                number3 = Int.random(in: 0...9)
+            }
+            while number4 == number1 || number4 == number2 || number4 == number3 {
+                number4 = Int.random(in: 0...9)
+            }
+            for inputNumBtn in inputNumButton {
+                inputNumBtn.isEnabled = true
+            }
         }
         ansLabel.text = "四位數已設定"
-        for inputNumBtn in inputNumButton {
-            inputNumBtn.isEnabled = true
-        }
         startButton.setTitle("偷看答案", for: .normal)
     }
     
@@ -72,10 +74,9 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func showAnsButton(_ sender: UIButton) {
-        ansLabel.text = String(number1) + String(number2) + String(number3) + String(number4)
-    }
-    @IBAction func unshowAnsButton(_ sender: UIButton) {
-        ansLabel.text = "四位數已設定"
+        if startButton.currentTitle == "偷看答案" {
+            ansLabel.text = String(number1) + String(number2) + String(number3) + String(number4)
+        }
     }
     
     @IBAction func checkButton(_ sender: Any) {
