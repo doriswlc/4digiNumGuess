@@ -19,18 +19,24 @@ class MainViewController: UIViewController {
     @IBOutlet var inputNumLabel: [UILabel]!
     @IBOutlet var inputNumButton: [UIButton]!
     @IBOutlet weak var ansLabel: UILabel!
-//    @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var recordTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        initUI()
+    }
+    
+    func initUI() {
+        startButton.setTitle("設定數字", for: .normal)
+        ansLabel.text = "(不重複的四位數字)"
+        recordTextView.text = ""
         checkButton.isHidden = true
         index = 0
         for inputNumBtn in inputNumButton {
             inputNumBtn.isEnabled = false
         }
     }
-
+    
     @IBAction func Start(_ sender: Any) {
         number1 = Int.random(in: 0...9)
         while number2 == number1 {
@@ -43,18 +49,16 @@ class MainViewController: UIViewController {
             number4 = Int.random(in: 0...9)
         }
         ansLabel.text = "四位數已設定"
-        startButton.isEnabled.toggle()
         for inputNumBtn in inputNumButton {
             inputNumBtn.isEnabled = true
         }
-        //ansLabel.text = String(number1) + String(number2) + String(number3) + String(number4)
+        startButton.setTitle("偷看答案", for: .normal)
     }
     
     @IBAction func inputButton(_ sender: UIButton) {
         if index >= 0 && index <= 3 {
             let num = inputNumButton.firstIndex(of: sender)!
             inputNumLabel[index].text = "\(num)"
-            print(num)
             sender.isEnabled = false
             index += 1
         }
@@ -66,6 +70,14 @@ class MainViewController: UIViewController {
             index = 0
         }
     }
+    
+    @IBAction func showAnsButton(_ sender: UIButton) {
+        ansLabel.text = String(number1) + String(number2) + String(number3) + String(number4)
+    }
+    @IBAction func unshowAnsButton(_ sender: UIButton) {
+        ansLabel.text = "四位數已設定"
+    }
+    
     @IBAction func checkButton(_ sender: Any) {
         count += 1
         var a = 0
@@ -118,13 +130,20 @@ class MainViewController: UIViewController {
         default:
             break
         }
-        //resultLabel.text = "\(a)A\(b)B"
-        recordTextView.text += "第\(count)次您猜的是\(inputNumLabel[0].text!)\(inputNumLabel[1].text!)\(inputNumLabel[2].text!)\(inputNumLabel[3].text!)，結果是\(a)A\(b)B\n"
+        recordTextView.text += "第\(count)次您猜的是\(inputNumLabel[0].text!)\(inputNumLabel[1].text!)\(inputNumLabel[2].text!)\(inputNumLabel[3].text!)，\n結果是\(a)A\(b)B\n"
         for i in 0..<inputNumLabel.count {
             inputNumLabel[i].text = ""
         }
         for inputNumBtn in inputNumButton {
             inputNumBtn.isEnabled = true
+        }
+        if a == 4 {
+            let controller = UIAlertController(title: "BINGO!", message: "You'd got the correct answer!", preferredStyle: .alert)
+            let finish = UIAlertAction(title: "Play Again!", style: .default) { _ in
+                self.initUI()
+            }
+            controller.addAction(finish)
+            present(controller, animated: true)
         }
     }
 }
