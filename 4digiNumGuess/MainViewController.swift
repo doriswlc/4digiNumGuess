@@ -32,6 +32,7 @@ class MainViewController: UIViewController {
         recordTextView.text = ""
         checkButton.isHidden = true
         index = 0
+        count = 0
         for inputNumBtn in inputNumButton {
             inputNumBtn.isEnabled = false
         }
